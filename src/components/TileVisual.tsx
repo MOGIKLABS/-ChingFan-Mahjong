@@ -170,10 +170,10 @@ export default function TileVisual({
         border-t-2 border-l border-r-4 border-b-6
         ${
           disabled
-            ? 'opacity-60 cursor-not-allowed border-[#1E211E]/40 bg-[#1E211E]/80 text-zinc-500'
+            ? 'opacity-50 cursor-not-allowed border-zinc-300 bg-white text-zinc-400'
             : active
-              ? 'border-gold-leaf bg-[#FFFFF0] shadow-[0_4px_16px_rgba(197,160,33,0.3)] scale-102 z-10'
-              : 'border-[#E6E6FA] bg-ivory text-surface hover:translate-y-[-2px] hover:shadow-md'
+              ? 'border-gold-leaf bg-white shadow-[0_4px_16px_rgba(197,160,33,0.3)] scale-102 z-10'
+              : 'border-[#d4d4d8] bg-white text-surface hover:translate-y-[-2px] hover:shadow-md'
         }
         after:absolute after:bottom-[-6px] after:right-[-4px] after:-z-10
         after:w-[calc(100%+4px)] after:h-[12%] after:rounded-b-lg after:bg-zinc-400/60
