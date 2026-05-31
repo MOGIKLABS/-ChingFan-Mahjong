@@ -580,10 +580,10 @@ export default function BuilderView({
                             : 'bg-zinc-800 border-zinc-700 text-zinc-300'
                       }`}
                     >
-                      {suit === 'characters' && (language === 'zh-HK' ? '萬子' : 'Wan')}
+                      {suit === 'characters' && (language === 'zh-HK' ? '萬子' : 'Man')}
                       {suit === 'dots' && (language === 'zh-HK' ? '筒子' : 'Dot')}
-                      {suit === 'bamboo' && (language === 'zh-HK' ? '索子' : 'Bam')}
-                      {suit === 'honors' && (language === 'zh-HK' ? '字牌' : 'Word')}
+                      {suit === 'bamboo' && (language === 'zh-HK' ? '索子' : 'Bamboo')}
+                      {suit === 'honors' && (language === 'zh-HK' ? '字牌' : 'Honours')}
                     </button>
                   );
                 })}
