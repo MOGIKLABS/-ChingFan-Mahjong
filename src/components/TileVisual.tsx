@@ -15,16 +15,6 @@ interface TileVisualProps {
   key?: any;
 }
 
-interface TileDisplay {
-  char: string;
-  symbol?: string;
-  charColor: string;
-  symbolColor?: string;
-  bgChar: string;
-  label: string;
-  isSpecial?: boolean;
-}
-
 export default function TileVisual({
   tileId,
   size = 'md',
@@ -34,126 +24,89 @@ export default function TileVisual({
   as,
 }: TileVisualProps) {
 
-  const getTileDisplay = (id: string): TileDisplay => {
+  const getTileContent = (id: string) => {
     const value = id.substring(0, 1);
     const suit = id.substring(1);
 
-    // Winds (東南西北) - all blue, matching physical HK tiles
+    // Winds - bold blue calligraphy, single character filling the tile
     switch (id) {
-      case 'east':
-        return { char: '東', charColor: 'text-[#1a56db]', bgChar: '東', label: 'East' };
-      case 'south':
-        return { char: '南', charColor: 'text-[#1a56db]', bgChar: '南', label: 'South' };
-      case 'west':
-        return { char: '西', charColor: 'text-[#1a56db]', bgChar: '西', label: 'West' };
-      case 'north':
-        return { char: '北', charColor: 'text-[#1a56db]', bgChar: '北', label: 'North' };
+      case 'east':  return { top: '東', topColor: '#1a4ecf', label: 'East' };
+      case 'south': return { top: '南', topColor: '#1a4ecf', label: 'South' };
+      case 'west':  return { top: '西', topColor: '#1a4ecf', label: 'West' };
+      case 'north': return { top: '北', topColor: '#1a4ecf', label: 'North' };
       // Dragons
-      case 'red':
-        return { char: '中', charColor: 'text-[#cc0000]', bgChar: '中', label: 'Red' };
-      case 'green':
-        return { char: '發', charColor: 'text-[#006630]', bgChar: '發', label: 'Green' };
-      case 'white':
-        return { char: '白', charColor: 'text-[#1a56db]', bgChar: '白', label: 'White' };
-      default:
-        break;
+      case 'red':   return { top: '中', topColor: '#cc0000', label: 'Red Dragon' };
+      case 'green': return { top: '發', topColor: '#006630', label: 'Green Dragon' };
+      case 'white': return { isWhiteDragon: true, label: 'White Dragon' };
+      default: break;
     }
 
-    // Seasons (春夏秋冬)
+    // Seasons
     if (id.startsWith('s')) {
       const names = ['春', '夏', '秋', '冬'];
-      const index = parseInt(value, 10) - 1;
-      return {
-        char: names[index] || '季',
-        charColor: 'text-[#1a56db]',
-        bgChar: value,
-        label: `Season ${value}`,
-        isSpecial: true,
-      };
+      const colors = ['#cc0000', '#1a4ecf', '#006630', '#8B4513'];
+      const idx = parseInt(value, 10) - 1;
+      return { top: names[idx], topColor: colors[idx], label: `Season ${value}`, isSpecial: true };
     }
 
-    // Flowers (梅蘭竹菊)
+    // Flowers
     if (id.startsWith('f')) {
       const names = ['梅', '蘭', '竹', '菊'];
-      const colors = ['text-[#cc0000]', 'text-[#1a56db]', 'text-[#006630]', 'text-[#cc6600]'];
-      const index = parseInt(value, 10) - 1;
-      return {
-        char: names[index] || '花',
-        charColor: colors[index] || 'text-[#cc6600]',
-        bgChar: value,
-        label: `Flower ${value}`,
-        isSpecial: true,
-      };
+      const colors = ['#cc0000', '#1a4ecf', '#006630', '#cc6600'];
+      const idx = parseInt(value, 10) - 1;
+      return { top: names[idx], topColor: colors[idx], label: `Flower ${value}`, isSpecial: true };
     }
 
-    // Characters (萬子) - odd: blue number/red 萬, even: red number/blue 萬
+    // Characters (萬) - number on top, 萬 on bottom, two-tone colour
     if (suit === 'w') {
-      const numbers = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+      const numbers = ['', '一', '二', '三', '四', '伍', '六', '七', '八', '九'];
       const num = parseInt(value, 10);
-      const numChar = numbers[num] || value;
       const isOdd = num % 2 !== 0;
       return {
-        char: numChar,
-        symbol: '萬',
-        charColor: isOdd ? 'text-[#1a56db]' : 'text-[#cc0000]',
-        symbolColor: isOdd ? 'text-[#cc0000]' : 'text-[#1a56db]',
-        bgChar: numChar,
+        top: numbers[num],
+        topColor: isOdd ? '#1a4ecf' : '#cc0000',
+        bottom: '萬',
+        bottomColor: isOdd ? '#cc0000' : '#1a4ecf',
         label: `${value} Wan`,
       };
     }
 
-    // Dots (筒子) - blue with multi-colour accents
+    // Dots (筒) - number on top, 筒 on bottom
     if (suit === 'd') {
       return {
-        char: value,
-        symbol: '筒',
-        charColor: 'text-[#1a56db]',
-        symbolColor: 'text-[#006630]',
-        bgChar: '●',
+        top: value,
+        topColor: '#1a4ecf',
+        bottom: '筒',
+        bottomColor: '#006630',
         label: `${value} Dot`,
       };
     }
 
-    // Bamboo (索子) - green, 1-Bamboo is the bird
+    // Bamboo (索) - 1-Bamboo is the bird
     if (suit === 'b') {
       if (value === '1') {
-        return {
-          char: '鳥',
-          charColor: 'text-[#006630]',
-          bgChar: '索',
-          label: '1 Bamboo',
-        };
+        return { top: '鳥', topColor: '#006630', label: '1 Bamboo' };
       }
       return {
-        char: value,
-        symbol: '索',
-        charColor: 'text-[#006630]',
-        symbolColor: 'text-[#006630]',
-        bgChar: '索',
+        top: value,
+        topColor: '#006630',
+        bottom: '索',
+        bottomColor: '#006630',
         label: `${value} Bamboo`,
       };
     }
 
-    return { char: id.toUpperCase(), charColor: 'text-zinc-600', bgChar: '', label: id };
+    return { top: id.toUpperCase(), topColor: '#666', label: id };
   };
 
-  const display = getTileDisplay(tileId);
+  const tile = getTileContent(tileId);
 
-  // Bigger sizes for 55+ demographic accessibility
-  const sizeClasses = {
-    sm: 'w-11 h-16 text-sm',
-    md: 'w-16 h-22 text-lg',
-    lg: 'w-20 h-28 text-2xl',
-  };
-
-  const basePaddingClass = {
-    sm: 'p-1',
-    md: 'p-1.5',
-    lg: 'p-2',
-  };
-
-  // White Dragon (白板) gets a special inner rendering
-  const isWhiteDragon = tileId === 'white';
+  // Generous sizes - 55+ accessibility
+  const dims = {
+    sm: { w: 'w-12', h: 'h-16', topFont: '18px', bottomFont: '12px' },
+    md: { w: 'w-16', h: 'h-22', topFont: '26px', bottomFont: '16px' },
+    lg: { w: 'w-20', h: 'h-28', topFont: '34px', bottomFont: '20px' },
+  }[size];
 
   const Component: 'div' | 'button' = as || (onClick ? 'button' : 'div');
   const componentProps = Component === 'button'
@@ -165,61 +118,52 @@ export default function TileVisual({
       id={`tile-${tileId}`}
       {...componentProps}
       className={`
-        relative inline-flex flex-col items-center justify-between
-        ${sizeClasses[size]} rounded-lg transition-all duration-150 select-none
-        border-t-2 border-l border-r-4 border-b-6
-        ${
-          disabled
-            ? 'opacity-50 cursor-not-allowed border-zinc-300 bg-white text-zinc-400'
-            : active
-              ? 'border-gold-leaf bg-white shadow-[0_4px_16px_rgba(197,160,33,0.3)] scale-102 z-10'
-              : 'border-[#d4d4d8] bg-white text-surface hover:translate-y-[-2px] hover:shadow-md'
+        relative inline-flex items-center justify-center
+        ${dims.w} ${dims.h} rounded-md select-none
+        border border-zinc-300
+        ${disabled
+          ? 'opacity-40 cursor-not-allowed bg-zinc-100'
+          : active
+            ? 'bg-white shadow-[0_0_12px_rgba(197,160,33,0.5)] ring-2 ring-gold-leaf scale-105 z-10'
+            : 'bg-white shadow-sm hover:shadow-md hover:translate-y-[-1px]'
         }
-        after:absolute after:bottom-[-6px] after:right-[-4px] after:-z-10
-        after:w-[calc(100%+4px)] after:h-[12%] after:rounded-b-lg after:bg-zinc-400/60
+        transition-all duration-150
       `}
-      style={{
-        fontFamily: "'Inter', sans-serif",
-      }}
     >
-      {/* Small corner index */}
-      <span className="absolute top-0.5 left-1 font-mono opacity-40 tracking-tighter" style={{ fontSize: size === 'sm' ? '7px' : '8px' }}>
-        {tileId.toUpperCase()}
-      </span>
-
-      {/* Main tile content */}
-      <div className={`flex flex-col items-center justify-center w-full h-full ${basePaddingClass[size]} mt-2`}>
-        {isWhiteDragon ? (
-          /* White Dragon: blue bordered rectangle matching physical tile */
-          <div
-            className="border-2 border-[#1a56db] rounded-sm"
-            style={{
-              width: size === 'sm' ? '16px' : size === 'md' ? '22px' : '28px',
-              height: size === 'sm' ? '22px' : size === 'md' ? '30px' : '38px',
-            }}
-          />
-        ) : (
-          <div className="flex flex-col items-center justify-center">
-            <span
-              className={`${display.charColor} font-serif font-extrabold leading-tight`}
-              style={{ fontSize: size === 'sm' ? '14px' : size === 'md' ? '20px' : '28px' }}
-            >
-              {display.char}
-            </span>
-            {display.symbol && (
-              <span
-                className={`${display.symbolColor || 'text-zinc-500'} font-serif font-bold leading-none mt-0.5`}
-                style={{ fontSize: size === 'sm' ? '10px' : size === 'md' ? '13px' : '16px' }}
-              >
-                {display.symbol}
-              </span>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Authentic depth border */}
-      <div className="absolute inset-0.5 border border-zinc-200/50 rounded-xs pointer-events-none" />
+      {'isWhiteDragon' in tile && tile.isWhiteDragon ? (
+        /* White Dragon: blue bordered rectangle */
+        <div
+          className="border-[3px] border-[#1a4ecf] rounded-sm"
+          style={{
+            width: size === 'sm' ? '20px' : size === 'md' ? '28px' : '36px',
+            height: size === 'sm' ? '26px' : size === 'md' ? '36px' : '46px',
+          }}
+        />
+      ) : 'bottom' in tile ? (
+        /* Two-character tiles: number + suit character stacked */
+        <div className="flex flex-col items-center justify-center leading-none gap-0">
+          <span
+            className="font-serif font-black"
+            style={{ color: tile.topColor, fontSize: dims.topFont, lineHeight: 1.1 }}
+          >
+            {tile.top}
+          </span>
+          <span
+            className="font-serif font-black"
+            style={{ color: tile.bottomColor, fontSize: dims.bottomFont, lineHeight: 1.1 }}
+          >
+            {tile.bottom}
+          </span>
+        </div>
+      ) : (
+        /* Single character tiles: winds, dragons, flowers, seasons, 1-bam */
+        <span
+          className="font-serif font-black"
+          style={{ color: tile.topColor, fontSize: dims.topFont, lineHeight: 1 }}
+        >
+          {tile.top}
+        </span>
+      )}
     </Component>
   );
 }
