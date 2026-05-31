@@ -68,7 +68,7 @@ export default function GlossaryView({ language }: GlossaryViewProps) {
               <span className="text-[10px] text-zinc-500 uppercase font-mono block">{t.exampleLabel}</span>
               <div className="flex flex-wrap gap-1 leading-none p-1.5 bg-surface/40 rounded-xl justify-center">
                 {g.exampleTiles.map((tId, idx) => (
-                  <TileVisual key={idx} tileId={tId} size="sm" disabled={true} />
+                  <TileVisual key={idx} tileId={tId} size="sm" />
                 ))}
               </div>
             </div>
