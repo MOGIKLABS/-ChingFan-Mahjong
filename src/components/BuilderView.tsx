@@ -294,7 +294,7 @@ export default function BuilderView({
   };
 
   return (
-    <div id="builder-view" className="space-y-6">
+    <div id="builder-view" className="space-y-8">
       {/* Configuration context cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border border-gold-leaf/15 bg-gradient-to-br from-[#0a2f0a] to-[#071e10] p-5 rounded-2xl">
         {/* Left Card: Winner Selection */}
@@ -669,33 +669,32 @@ export default function BuilderView({
         </div>
       )}
 
-      {/* Realtime Scorer breakdown output */}
-      <div className="rounded-2xl border border-gold-leaf/15 bg-gradient-to-br from-[#0a2f0a] to-[#071e10] p-5 space-y-4">
-        <h3 className="text-sm font-serif font-semibold text-gold-leaf">{t.scoreResult}</h3>
+      {/* Result */}
+      <div className="rounded-2xl bg-gradient-to-br from-[#0a2f0a] via-[#004d00] to-[#043404] p-6 shadow-2xl border border-gold-leaf/30 space-y-5">
+        <h3 className="text-base font-serif font-bold text-gold-leaf">{t.scoreResult}</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {/* Card Left: Total Valuation */}
-          <div className="bg-surface border border-zinc-850 p-5 rounded-xl flex flex-col items-center justify-center text-center">
+          {/* Fan Count */}
+          <div className="bg-surface/40 border border-gold-leaf/10 p-6 rounded-xl flex flex-col items-center justify-center text-center">
             {calculation.isValid ? (
               <>
-                <div className="flex items-center gap-1.5 text-emerald-500 font-serif text-xs font-bold mb-1">
-                  <Check size={14} />
-                  <span>{language === 'zh-HK' ? '胡牌成立 ✓' : 'Valid Hand ✓'}</span>
+                <div className="flex items-center gap-2 text-emerald-400 font-serif text-sm font-bold mb-2">
+                  <Check size={18} />
+                  <span>{language === 'zh-HK' ? '胡牌成立' : 'Valid Hand'}</span>
                 </div>
-                <div className="text-xs text-zinc-400 font-serif">Total</div>
-                <div className="text-5xl font-serif font-extrabold text-gold-leaf tracking-wider mt-3">
-                  {calculation.totalFan} <span className="text-xl font-normal">{t.fan}</span>
+                <div className="text-6xl font-serif font-extrabold text-gold-leaf tracking-wider mt-2">
+                  {calculation.totalFan} <span className="text-2xl font-normal">{t.fan}</span>
                 </div>
-                <div className="text-md font-mono text-zinc-300 font-bold mt-2">
-                  <span className="text-emerald-500">{calculation.points}</span> {language === 'zh-HK' ? '分' : 'Points'}
+                <div className="text-lg font-serif text-emerald-400 font-bold mt-3">
+                  {calculation.points} {language === 'zh-HK' ? '分' : 'Points'}
                 </div>
-                <span className="mt-1 text-sm text-zinc-400 font-serif">{calculation.handNameZh} ({calculation.totalFan}番)</span>
+                <span className="mt-2 text-sm text-ivory/70 font-serif">{calculation.handNameZh} ({calculation.totalFan}番)</span>
               </>
             ) : (
               <>
-                <div className="flex flex-col items-center justify-center text-center p-4">
-                  <AlertTriangle size={32} className="text-amber-500 mb-2" />
-                  <span className="text-xs text-zinc-400 font-serif leading-relaxed">
+                <div className="flex flex-col items-center justify-center text-center p-6">
+                  <AlertTriangle size={36} className="text-amber-500 mb-3" />
+                  <span className="text-sm text-ivory/60 font-serif leading-relaxed">
                     {calculation.errorMsg}
                   </span>
                 </div>
@@ -703,35 +702,35 @@ export default function BuilderView({
             )}
           </div>
 
-          {/* Card Center: Criteria Breakdown */}
-          <div className="bg-surface border border-zinc-850 p-4 rounded-xl md:col-span-2 space-y-3">
-            <span className="text-xs text-gold-leaf/60 block font-serif">{language === 'zh-HK' ? '番種明細' : 'Fan Breakdown'}</span>
+          {/* Fan Breakdown */}
+          <div className="bg-surface/40 border border-gold-leaf/10 p-5 rounded-xl md:col-span-2 space-y-3">
+            <span className="text-sm text-gold-leaf/70 block font-serif">{language === 'zh-HK' ? '番種明細' : 'Fan Breakdown'}</span>
 
             {calculation.isValid && calculation.breakdown.length > 0 ? (
-              <div className="space-y-1.5 max-h-[140px] overflow-y-auto pr-1">
+              <div className="space-y-2 max-h-[200px] overflow-y-auto pr-1">
                 {calculation.breakdown.map((b, idx) => (
-                  <div key={idx} className="flex justify-between items-center text-xs py-1 border-b border-zinc-850">
-                    <span className="text-zinc-200 font-medium">{language === 'zh-HK' ? b.nameZh : b.nameEn}</span>
-                    <span className="text-gold-leaf font-mono font-bold font-semibold">+{b.fan} {t.fan}</span>
+                  <div key={idx} className="flex justify-between items-center text-sm py-2 border-b border-gold-leaf/10">
+                    <span className="text-ivory font-medium">{language === 'zh-HK' ? b.nameZh : b.nameEn}</span>
+                    <span className="text-gold-leaf font-serif font-bold">+{b.fan} {t.fan}</span>
                   </div>
                 ))}
               </div>
             ) : (
-              <span className="text-xs text-zinc-600 block py-6 text-center font-serif">
+              <span className="text-sm text-ivory/40 block py-8 text-center font-serif">
                 {calculation.isValid ? (language === 'zh-HK' ? '雞糊（冇番）' : 'Chicken hand (no fan)') : (language === 'zh-HK' ? '砌好先計' : 'Complete hand to score')}
               </span>
             )}
           </div>
         </div>
 
-        {/* Ledger recording action trigger */}
-        <div className="flex justify-end pt-2 border-t border-zinc-850">
+        {/* Record button */}
+        <div className="flex justify-end pt-3 border-t border-gold-leaf/10">
           <button
             id="builder-record-win-btn"
             disabled={!calculation.isValid}
             onClick={handleRecordWin}
             className={`
-              flex items-center gap-2 font-bold text-xs px-6 py-3.5 rounded-xl transition-all duration-150
+              flex items-center gap-2 font-bold text-sm px-8 py-4 rounded-xl transition-all duration-150
               ${
                 !calculation.isValid
                   ? 'opacity-40 cursor-not-allowed bg-zinc-800 text-zinc-500'
@@ -739,7 +738,7 @@ export default function BuilderView({
               }
             `}
           >
-            <Save size={16} />
+            <Save size={18} />
             <span>{t.recordBtn}</span>
           </button>
         </div>
