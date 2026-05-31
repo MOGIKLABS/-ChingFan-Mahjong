@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { MatchSession, Language, GameRecord } from '../types';
-import { ScrollText, ArrowUpRight, ArrowDownRight, Trash2, Calendar, ShieldAlert } from 'lucide-react';
+import { ScrollText, Trash2 } from 'lucide-react';
 
 interface LedgerViewProps {
   session: MatchSession;
