@@ -38,7 +38,7 @@ export default function GlossaryView({ language }: GlossaryViewProps) {
           <div
             key={g.id}
             id={`glossary-card-${g.id}`}
-            className="border border-zinc-800 bg-[#121412] hover:border-gold-leaf/30 rounded-2xl p-5 space-y-4 transition-all hover:translate-y-[-1px]"
+            className="border border-zinc-800 bg-[#091e12] hover:border-gold-leaf/30 rounded-2xl p-5 space-y-4 transition-all hover:translate-y-[-1px]"
           >
             <div className="flex items-start justify-between border-b border-zinc-800 pb-3">
               <div>
