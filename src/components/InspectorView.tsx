@@ -94,15 +94,26 @@ export default function InspectorView({
       });
 
       if (!response.ok) {
-        const errJson = await response.json();
-        throw new Error(errJson.error || 'Network error scanning Mahjong layout.');
+        let errMsg = 'Network error scanning Mahjong layout.';
+        try {
+          const errJson = await response.json();
+          errMsg = errJson.error || errMsg;
+        } catch {
+          // Response wasn't JSON (e.g. Vercel 404 page)
+        }
+        throw new Error(errMsg);
       }
 
       const scanResult = await response.json();
       setResult(scanResult);
     } catch (err: any) {
-      console.error(err);
-      setError(err.message || 'Error occurred starting Mahjong image parse.');
+      const isNetworkError = err.message?.includes('Failed to fetch') || err.message?.includes('Network error');
+      const friendlyMsg = isNetworkError
+        ? (language === 'zh-HK'
+          ? '掃描功能需要本地伺服器及 Gemini API 金鑰才能運行。請使用下方的「範例牌型」按鈕試用功能！'
+          : 'Photo scanning requires a local server with a Gemini API key. Try the sample preset hands below to see the feature in action!')
+        : (err.message || 'Error occurred starting Mahjong image parse.');
+      setError(friendlyMsg);
     } finally {
       setLoading(false);
     }
@@ -305,7 +316,9 @@ export default function InspectorView({
               </div>
             ) : (
               <div className="text-center py-12 text-zinc-550 font-serif text-xs">
-                {!error && 'Please load a camera mockup or snap a photo to trigger Gemini analysis.'}
+                {!error && (language === 'zh-HK'
+                  ? '上傳照片啟動 AI 掃描，或使用左方「範例牌型」按鈕即時體驗！'
+                  : 'Upload a photo to scan with Gemini AI, or try the sample preset hands on the left to see it in action.')}
               </div>
             )}
           </div>
