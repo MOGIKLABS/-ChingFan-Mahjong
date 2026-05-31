@@ -295,6 +295,53 @@ export default function BuilderView({
 
   return (
     <div id="builder-view" className="space-y-8">
+      {/* Tile Palette - all tiles visible for quick reference and selection */}
+      {editingSlot === null && (
+        <div className="border border-gold-leaf/20 bg-[#0f3320] p-5 rounded-2xl space-y-4">
+          <h3 className="text-sm font-serif font-semibold text-gold-leaf">
+            {language === 'zh-HK' ? '所有牌' : 'All Tiles'}
+          </h3>
+          <div className="space-y-3">
+            {/* Characters */}
+            <div>
+              <span className="text-xs text-gold-leaf/50 font-serif block mb-1.5">{language === 'zh-HK' ? '萬子' : 'Characters'}</span>
+              <div className="flex flex-wrap gap-1.5">
+                {[1,2,3,4,5,6,7,8,9].map(n => (
+                  <TileVisual key={`${n}w`} tileId={`${n}w`} size="sm" />
+                ))}
+              </div>
+            </div>
+            {/* Dots */}
+            <div>
+              <span className="text-xs text-gold-leaf/50 font-serif block mb-1.5">{language === 'zh-HK' ? '筒子' : 'Dots'}</span>
+              <div className="flex flex-wrap gap-1.5">
+                {[1,2,3,4,5,6,7,8,9].map(n => (
+                  <TileVisual key={`${n}d`} tileId={`${n}d`} size="sm" />
+                ))}
+              </div>
+            </div>
+            {/* Bamboo */}
+            <div>
+              <span className="text-xs text-gold-leaf/50 font-serif block mb-1.5">{language === 'zh-HK' ? '索子' : 'Bamboo'}</span>
+              <div className="flex flex-wrap gap-1.5">
+                {[1,2,3,4,5,6,7,8,9].map(n => (
+                  <TileVisual key={`${n}b`} tileId={`${n}b`} size="sm" />
+                ))}
+              </div>
+            </div>
+            {/* Honours */}
+            <div>
+              <span className="text-xs text-gold-leaf/50 font-serif block mb-1.5">{language === 'zh-HK' ? '字牌' : 'Honours'}</span>
+              <div className="flex flex-wrap gap-1.5">
+                {['east','south','west','north','red','green','white'].map(id => (
+                  <TileVisual key={id} tileId={id} size="sm" />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Configuration context cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border border-gold-leaf/20 bg-[#0f3320] p-5 rounded-2xl">
         {/* Left Card: Winner Selection */}
