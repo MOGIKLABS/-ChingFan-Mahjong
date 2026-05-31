@@ -7,7 +7,7 @@ import React from 'react';
 import { GLOSSARY_HANDS } from '../utils/mahjongCalculator';
 import { Language } from '../types';
 import TileVisual from './TileVisual';
-import { BookOpen, Search, ShieldCheck } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 
 interface GlossaryViewProps {
   language: Language;
