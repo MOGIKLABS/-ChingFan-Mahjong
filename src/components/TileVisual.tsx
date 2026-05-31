@@ -76,8 +76,9 @@ export default function TileVisual({
       const numbers = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
       const numChar = numbers[parseInt(value, 10)] || value;
       return {
-        char: `${numChar}\n萬`,
-        color: 'text-accent-red font-medium leading-none whitespace-pre-line',
+        char: numChar,
+        symbol: '萬',
+        color: 'text-accent-red font-medium',
         bgChar: numChar,
         label: `${value} Wan`,
       };
@@ -85,7 +86,6 @@ export default function TileVisual({
 
     // Dots
     if (suit === 'd') {
-      const dotsSymbols = ['', '●', '●●', '●●●', '::', '::●', ':::', ':::●', '::::', ':::::'];
       return {
         char: value,
         symbol: '筒',
@@ -98,8 +98,8 @@ export default function TileVisual({
     // Bamboo
     if (suit === 'b') {
       return {
-        char: value === '1' ? '🦚' : value, // traditional 1 Bamboo is a sparrow/peacock
-        symbol: value === '1' ? '' : '索',
+        char: value,
+        symbol: '索',
         color: 'text-primary font-bold',
         bgChar: '索',
         label: `${value} Bamboo`,
@@ -145,7 +145,7 @@ export default function TileVisual({
               : 'border-[#E6E6FA] bg-ivory text-surface hover:translate-y-[-2px] hover:shadow-md'
         }
         after:absolute after:bottom-[-6px] after:right-[-4px] after:-z-10
-        after:w-[calc(100%+4px)] after:h-[12%] after:rounded-b-lg after:bg-primary
+        after:w-[calc(100%+4px)] after:h-[12%] after:rounded-b-lg after:bg-zinc-400/60
       `}
       style={{
         fontFamily: "'Inter', sans-serif",
@@ -158,27 +158,16 @@ export default function TileVisual({
 
       {/* Main tile content face */}
       <div className={`flex flex-col items-center justify-center w-full h-full ${basePaddingClass[size]} mt-2`}>
-        {display.char.includes('\n') ? (
-          <div className="text-center text-xs sm:text-sm font-semibold tracking-tighter leading-tight font-serif whitespace-pre">
-            <span className="text-zinc-700 text-[10px] block font-sans" style={{ fontSize: size === 'sm' ? '8px' : '9px' }}>{display.bgChar}</span>
-            <span className={`${display.color}`}>{display.char.split('\n')[1]}</span>
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center">
-            {display.char === '🦚' ? (
-              <span className="text-xl sm:text-2xl leading-none">🦚</span>
-            ) : (
-              <span className={`${display.color} font-serif ${size === 'sm' ? 'text-xs' : 'text-base sm:text-lg'} font-bold`}>
-                {display.char}
-              </span>
-            )}
-            {display.symbol && (
-              <span className="text-[10px] sm:text-xs text-zinc-500 font-serif leading-none mt-0.5">
-                {display.symbol}
-              </span>
-            )}
-          </div>
-        )}
+        <div className="flex flex-col items-center justify-center">
+          <span className={`${display.color} font-serif ${size === 'sm' ? 'text-xs' : 'text-base sm:text-lg'} font-bold`}>
+            {display.char}
+          </span>
+          {display.symbol && (
+            <span className="text-[10px] sm:text-xs text-zinc-500 font-serif leading-none mt-0.5">
+              {display.symbol}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Subtle border indicator for authentic depth */}
