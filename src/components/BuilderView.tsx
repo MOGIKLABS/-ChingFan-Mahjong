@@ -687,9 +687,9 @@ export default function BuilderView({
                   {calculation.totalFan} <span className="text-xl font-normal">{t.fan}</span>
                 </div>
                 <div className="text-md font-mono text-zinc-300 font-bold mt-2">
-                  $2^(n-1) = <span className="text-emerald-500">{calculation.points}</span> {t.points}
+                  <span className="text-emerald-500">{calculation.points}</span> {language === 'zh-HK' ? '分' : 'Points'}
                 </div>
-                <span className="mt-1 text-xs text-zinc-400 font-serif">{calculation.handNameZh}</span>
+                <span className="mt-1 text-sm text-zinc-400 font-serif">{calculation.handNameZh} ({calculation.totalFan}番)</span>
               </>
             ) : (
               <>
