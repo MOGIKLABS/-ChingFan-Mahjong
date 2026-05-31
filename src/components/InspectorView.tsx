@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import { HandState, Language } from '../types';
 import TileVisual from './TileVisual';
-import { Camera, Upload, RefreshCw, Layers, CheckCircle2, AlertCircle, HelpCircle } from 'lucide-react';
+import { Camera, Upload, RefreshCw, Layers, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface InspectorViewProps {
   language: Language;
