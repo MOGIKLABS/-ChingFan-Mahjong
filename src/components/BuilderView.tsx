@@ -399,7 +399,7 @@ export default function BuilderView({
       </div>
 
       {/* Hand builder interface representing 4 Melds + 1 Eye */}
-      <div className="border border-zinc-800 bg-[#121412] p-5 rounded-2xl space-y-4">
+      <div className="border border-zinc-800 bg-[#091e12] p-5 rounded-2xl space-y-4">
         <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest">{t.meldList}</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
@@ -489,7 +489,7 @@ export default function BuilderView({
       </div>
 
       {/* Flowers selector screen */}
-      <div className="border border-zinc-800 bg-[#121412] p-5 rounded-2xl space-y-4">
+      <div className="border border-zinc-800 bg-[#091e12] p-5 rounded-2xl space-y-4">
         <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest">{t.flowers}</h3>
 
         <div className="flex flex-wrap gap-2.5 justify-center">
@@ -521,7 +521,7 @@ export default function BuilderView({
       {/* Editor Modal Overlay for slot config */}
       {editingSlot !== null && (
         <div id="meld-builder-modal" className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fadeIn">
-          <div className="w-full max-w-md border border-zinc-800 bg-[#1E211E] rounded-2xl p-6 shadow-2xl space-y-4">
+          <div className="w-full max-w-md border border-zinc-800 bg-[#0f2a1a] rounded-2xl p-6 shadow-2xl space-y-4">
             <h4 className="text-md font-serif font-bold text-gold-leaf flex items-center gap-2 border-b border-zinc-800 pb-3">
               <Plus size={16} />
               <span>{t.meldBuilder} (Editing {editingSlot === 'eye' ? 'Eye' : `Meld ${editingSlot + 1}`})</span>
@@ -670,7 +670,7 @@ export default function BuilderView({
       )}
 
       {/* Realtime Scorer breakdown output */}
-      <div className="rounded-2xl border border-zinc-800 bg-[#121412] p-5 space-y-4">
+      <div className="rounded-2xl border border-zinc-800 bg-[#091e12] p-5 space-y-4">
         <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest">{t.scoreResult}</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
