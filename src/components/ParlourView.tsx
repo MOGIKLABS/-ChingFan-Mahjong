@@ -177,7 +177,7 @@ export default function ParlourView({
 
       {/* Settings configuration form */}
       {showConfig && (
-        <div id="parlour-settings-panel" className="rounded-2xl border border-zinc-800 bg-[#1E211E] p-6 space-y-6 animate-fadeIn">
+        <div id="parlour-settings-panel" className="rounded-2xl border border-zinc-800 bg-[#0f2a1a] p-6 space-y-6 animate-fadeIn">
           <h3 className="text-lg font-serif font-bold text-gold-leaf flex items-center gap-2 border-b border-zinc-800 pb-3">
             <Settings2 size={18} />
             <span>{t.setupTitle}</span>
@@ -408,7 +408,7 @@ export default function ParlourView({
       </div>
 
       {/* Recap & Logs section */}
-      <div className="rounded-2xl border border-zinc-800 bg-[#121412] p-5 space-y-4">
+      <div className="rounded-2xl border border-zinc-800 bg-[#091e12] p-5 space-y-4">
         <h3 className="text-sm font-serif font-bold text-gold-leaf flex items-center gap-2 border-b border-zinc-800 pb-3">
           <TrendingUp size={16} />
           <span>{t.recapLabel}</span>
