@@ -12,7 +12,7 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   
   /* Brand Heritage Palette matching ChingFan Design Specs */
-  --color-surface: #121412;
+  --color-surface: #0d2818;
   --color-primary: #004d00;
   --color-gold-leaf: #C5A021;
   --color-accent-red: #8B0000;
@@ -35,7 +35,7 @@
 }
 
 body {
-  background-color: #121412;
+  background-color: #0d2818;
   color: #F3F4F6;
   font-family: var(--font-sans);
 }
