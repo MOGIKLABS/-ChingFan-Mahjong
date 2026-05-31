@@ -296,7 +296,7 @@ export default function BuilderView({
   return (
     <div id="builder-view" className="space-y-8">
       {/* Configuration context cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border border-gold-leaf/15 bg-gradient-to-br from-[#0a2f0a] to-[#071e10] p-5 rounded-2xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border border-gold-leaf/20 bg-[#0f3320] p-5 rounded-2xl">
         {/* Left Card: Winner Selection */}
         <div className="space-y-3">
           <label className="text-sm font-serif font-semibold text-gold-leaf">{t.winner}</label>
@@ -399,7 +399,7 @@ export default function BuilderView({
       </div>
 
       {/* Hand builder interface representing 4 Melds + 1 Eye */}
-      <div className="border border-gold-leaf/15 bg-gradient-to-br from-[#0a2f0a] to-[#071e10] p-5 rounded-2xl space-y-4">
+      <div className="border border-gold-leaf/20 bg-[#0f3320] p-5 rounded-2xl space-y-4">
         <h3 className="text-sm font-serif font-semibold text-gold-leaf">{t.meldList}</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
@@ -424,7 +424,7 @@ export default function BuilderView({
                   )}
                 </div>
 
-                <div className="flex gap-1.5 mt-3 pt-2 border-t border-zinc-850">
+                <div className="flex gap-1.5 mt-3 pt-2 border-t border-gold-leaf/10">
                   <button
                     onClick={() => {
                       setEditorMeldType('pung');
@@ -464,7 +464,7 @@ export default function BuilderView({
               )}
             </div>
 
-            <div className="flex gap-1.5 mt-3 pt-2 border-t border-zinc-850">
+            <div className="flex gap-1.5 mt-3 pt-2 border-t border-gold-leaf/10">
               <button
                 onClick={() => {
                   setEditorSuit('characters');
@@ -489,7 +489,7 @@ export default function BuilderView({
       </div>
 
       {/* Flowers selector screen */}
-      <div className="border border-gold-leaf/15 bg-gradient-to-br from-[#0a2f0a] to-[#071e10] p-5 rounded-2xl space-y-4">
+      <div className="border border-gold-leaf/20 bg-[#0f3320] p-5 rounded-2xl space-y-4">
         <h3 className="text-sm font-serif font-semibold text-gold-leaf">{t.flowers}</h3>
 
         <div className="flex flex-wrap gap-2.5 justify-center">
@@ -502,12 +502,12 @@ export default function BuilderView({
                 onClick={() => toggleFlower(t.id)}
                 className={`flex flex-col items-center p-1.5 rounded-lg border transition-all ${
                   active
-                    ? 'bg-zinc-800/80 border-gold-leaf text-gold-leaf shadow-sm scale-102 font-bold'
-                    : 'bg-zinc-900 border-zinc-800/80 text-zinc-500 hover:text-zinc-300'
+                    ? 'bg-white/10 border-gold-leaf text-gold-leaf shadow-sm scale-102 font-bold'
+                    : 'bg-white/5 border-gold-leaf/15 text-zinc-300 hover:text-zinc-100 hover:border-gold-leaf/30'
                 }`}
               >
-                <div className="scale-90">
-                  <TileVisual tileId={t.id} size="sm" active={active} disabled={true} />
+                <div>
+                  <TileVisual tileId={t.id} size="sm" active={active} />
                 </div>
                 <span className="text-[10px] font-medium leading-none block text-center mt-1">
                   {language === 'zh-HK' ? t.nameZh : t.nameEn}
@@ -521,7 +521,7 @@ export default function BuilderView({
       {/* Editor Modal Overlay for slot config */}
       {editingSlot !== null && (
         <div id="meld-builder-modal" className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fadeIn">
-          <div className="w-full max-w-md border border-zinc-800 bg-gradient-to-br from-[#0c2814] to-[#091e10] rounded-2xl p-6 shadow-2xl space-y-4">
+          <div className="w-full max-w-md border border-gold-leaf/20 bg-[#0f3320] rounded-2xl p-6 shadow-2xl space-y-4">
             <h4 className="text-md font-serif font-bold text-gold-leaf flex items-center gap-2 border-b border-zinc-800 pb-3">
               <Plus size={16} />
               <span>{t.meldBuilder} (Editing {editingSlot === 'eye' ? 'Eye' : `Meld ${editingSlot + 1}`})</span>
@@ -650,7 +650,7 @@ export default function BuilderView({
             </div>
 
             {/* Actions modal bar */}
-            <div className="flex gap-2 pt-4 border-t border-zinc-850 justify-end">
+            <div className="flex gap-2 pt-4 border-t border-gold-leaf/10 justify-end">
               <button
                 onClick={() => setEditingSlot(null)}
                 className="px-4 py-2 border border-zinc-700 hover:bg-zinc-800 text-zinc-350 text-xs font-semibold rounded-lg"
@@ -670,12 +670,12 @@ export default function BuilderView({
       )}
 
       {/* Result */}
-      <div className="rounded-2xl bg-gradient-to-br from-[#0a2f0a] via-[#004d00] to-[#043404] p-6 shadow-2xl border border-gold-leaf/30 space-y-5">
+      <div className="rounded-2xl border border-gold-leaf/20 bg-[#0f3320] p-6 space-y-5">
         <h3 className="text-base font-serif font-bold text-gold-leaf">{t.scoreResult}</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {/* Fan Count */}
-          <div className="bg-surface/40 border border-gold-leaf/10 p-6 rounded-xl flex flex-col items-center justify-center text-center">
+          <div className="bg-white/5 border border-gold-leaf/15 p-6 rounded-xl flex flex-col items-center justify-center text-center">
             {calculation.isValid ? (
               <>
                 <div className="flex items-center gap-2 text-emerald-400 font-serif text-sm font-bold mb-2">
@@ -703,7 +703,7 @@ export default function BuilderView({
           </div>
 
           {/* Fan Breakdown */}
-          <div className="bg-surface/40 border border-gold-leaf/10 p-5 rounded-xl md:col-span-2 space-y-3">
+          <div className="bg-white/5 border border-gold-leaf/15 p-5 rounded-xl md:col-span-2 space-y-3">
             <span className="text-sm text-gold-leaf/70 block font-serif">{language === 'zh-HK' ? '番種明細' : 'Fan Breakdown'}</span>
 
             {calculation.isValid && calculation.breakdown.length > 0 ? (
