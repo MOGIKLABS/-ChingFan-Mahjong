@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { MatchSession, Player, Language } from '../types';
-import { User, Settings2, Plus, Minus, TrendingUp, HelpCircle } from 'lucide-react';
+import { Settings2, Plus, Minus, TrendingUp } from 'lucide-react';
 
 interface ParlourViewProps {
   session: MatchSession;
