@@ -5,9 +5,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { MatchSession, HandState, Meld, Language, Player, GameRecord } from '../types';
-import { ALL_TILES, calculateScore, calculatePoints } from '../utils/mahjongCalculator';
+import { ALL_TILES, calculateScore } from '../utils/mahjongCalculator';
 import TileVisual from './TileVisual';
-import { Check, AlertTriangle, PlayCircle, Plus, Trash2, HelpCircle, Save } from 'lucide-react';
+import { Check, AlertTriangle, Plus, Trash2, Save } from 'lucide-react';
 
 interface BuilderViewProps {
   session: MatchSession;
