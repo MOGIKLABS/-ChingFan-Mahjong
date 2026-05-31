@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { Language } from '../types';
-import { RefreshCw, Languages, Trophy } from 'lucide-react';
+import { RefreshCw, Languages, Trophy, Camera } from 'lucide-react';
 
 interface TopAppBarProps {
   language: Language;
@@ -14,6 +14,7 @@ interface TopAppBarProps {
   onResetSession?: () => void;
   prevailingWind?: string;
   consecutiveWins?: number;
+  onCameraPress?: () => void;
 }
 
 export default function TopAppBar({
@@ -23,6 +24,7 @@ export default function TopAppBar({
   onResetSession,
   prevailingWind = 'east',
   consecutiveWins = 0,
+  onCameraPress,
 }: TopAppBarProps) {
   const getWindName = (wind: string) => {
     const winds = {
@@ -54,19 +56,28 @@ export default function TopAppBar({
           </div>
         </div>
 
-        {/* Status Pills */}
-        <div className="hidden sm:flex items-center gap-3">
+        {/* Centre: Wind status + Camera */}
+        <div className="flex items-center gap-3">
           <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-zinc-300 font-serif">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>{language === 'zh-HK' ? windInfo.zh : windInfo.en}</span>
           </div>
           {consecutiveWins > 0 && (
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-accent-red/20 border border-accent-red/30 px-3 py-1 text-xs text-gold-leaf font-serif">
+            <div className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-accent-red/20 border border-accent-red/30 px-3 py-1 text-xs text-gold-leaf font-serif">
               <Trophy size={12} className="text-gold-leaf" />
               <span>
-                {language === 'zh-HK' ? `莊家連 ${consecutiveWins} 莊` : `Dealer Streak ${consecutiveWins}`}
+                {language === 'zh-HK' ? `連${consecutiveWins}莊` : `${consecutiveWins}x Dealer`}
               </span>
             </div>
+          )}
+          {onCameraPress && (
+            <button
+              onClick={onCameraPress}
+              title={language === 'zh-HK' ? '掃描牌面' : 'Scan tiles'}
+              className="p-2 text-zinc-400 hover:text-gold-leaf hover:bg-primary/20 border border-transparent hover:border-gold-leaf/30 rounded-full transition-all duration-150"
+            >
+              <Camera size={20} />
+            </button>
           )}
         </div>
 
