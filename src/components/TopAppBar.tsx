@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { Language } from '../types';
-import { HelpCircle, RefreshCw, Languages, Trophy } from 'lucide-react';
+import { RefreshCw, Languages, Trophy } from 'lucide-react';
 
 interface TopAppBarProps {
   language: Language;
