@@ -24,19 +24,19 @@ export default function ParlourView({
   const [editingPlayers, setEditingPlayers] = useState<Player[]>(session.players);
 
   const t = {
-    tableName: language === 'zh-HK' ? '「東風雅座」牌局' : 'Heritage Table',
-    setupTitle: language === 'zh-HK' ? '雅座牌局設定' : 'Heritage Configuration',
+    tableName: language === 'zh-HK' ? '「東風雅座」牌局' : 'Table Setup',
+    setupTitle: language === 'zh-HK' ? '雅座牌局設定' : 'Table Settings',
     roundWind: language === 'zh-HK' ? '圈風 (場風)' : 'Prevailing Wind',
     dealer: language === 'zh-HK' ? '莊家' : 'Dealer',
     consecutiveDealer: language === 'zh-HK' ? '連莊數' : 'Dealer Streak',
-    minFan: language === 'zh-HK' ? '起胡番數 (門檻)' : 'Minimum House Fan',
-    playersLabel: language === 'zh-HK' ? '雀友名單' : 'Players Register',
-    startingChips: language === 'zh-HK' ? '起始籌碼' : 'Initial Chips/Points',
-    saveSetup: language === 'zh-HK' ? '開局 / 保存設定' : 'Lock Setup / Save',
-    activeTable: language === 'zh-HK' ? '私房牌局' : 'Active Parlour Round',
-    recapLabel: language === 'zh-HK' ? '雅局籌碼分布' : 'Chips Balance Sheets',
-    quickAction: language === 'zh-HK' ? '前往算分' : 'Open Scorer',
-    cantOn: language === 'zh-HK' ? '本局最低起胡：' : 'Min House Rule: ',
+    minFan: language === 'zh-HK' ? '起胡番數 (門檻)' : 'Min Fan',
+    playersLabel: language === 'zh-HK' ? '雀友名單' : 'Players',
+    startingChips: language === 'zh-HK' ? '起始籌碼' : 'Starting Chips',
+    saveSetup: language === 'zh-HK' ? '開局 / 保存設定' : 'Save',
+    activeTable: language === 'zh-HK' ? '私房牌局' : 'Round in Progress',
+    recapLabel: language === 'zh-HK' ? '雅局籌碼分布' : 'Chip Standings',
+    quickAction: language === 'zh-HK' ? '前往算分' : 'Score a Hand',
+    cantOn: language === 'zh-HK' ? '本局最低起胡：' : 'Min: ',
     fanLabel: language === 'zh-HK' ? '番' : 'Fan',
     dealerMark: language === 'zh-HK' ? '莊' : 'D',
   };
@@ -110,7 +110,7 @@ export default function ParlourView({
               {t.tableName}
             </h2>
             <p className="text-sm text-emerald-100/70 mt-1 max-w-md">
-              {t.cantOn} <strong className="text-gold-leaf">{session.minFan} {t.fanLabel}</strong>. {language === 'zh-HK' ? '此番數以下為自摸/食糊不予算分' : 'Hands scoring below this are invalid and pay zero.'}
+              {t.cantOn} <strong className="text-gold-leaf">{session.minFan} {t.fanLabel}</strong>. {language === 'zh-HK' ? '此番數以下為自摸/食糊不予算分' : 'Hands below this score zero.'}
             </p>
           </div>
 
@@ -186,7 +186,7 @@ export default function ParlourView({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Left Col: Match Rules */}
             <div className="space-y-4">
-              <h4 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest">{language === 'zh-HK' ? '本局規則與莊位' : 'Match Rules & Dealers'}</h4>
+              <h4 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest">{language === 'zh-HK' ? '本局規則與莊位' : 'Rules & Dealer'}</h4>
 
               {/* Prevailing Wind */}
               <div>
@@ -214,7 +214,7 @@ export default function ParlourView({
 
               {/* Dealer Position */}
               <div>
-                <label className="text-xs text-zinc-300 block mb-2">{language === 'zh-HK' ? '設定當前莊家' : 'Appoint Current Dealer'}</label>
+                <label className="text-xs text-zinc-300 block mb-2">{language === 'zh-HK' ? '設定當前莊家' : 'Set Dealer'}</label>
                 <div className="grid grid-cols-4 gap-2">
                   {session.players.map((p, idx) => (
                     <button
@@ -343,7 +343,7 @@ export default function ParlourView({
 
       {/* Parlour Seat map layout */}
       <div className="border border-zinc-800 bg-surface/40 rounded-2xl p-6">
-        <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-6">{language === 'zh-HK' ? '雀桌形勢 (座次分布)' : 'Felt Map (Play Seats)'}</h3>
+        <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-6">{language === 'zh-HK' ? '雀桌形勢 (座次分布)' : 'Seat Map'}</h3>
 
         <div className="flex justify-center items-center py-6">
           <div className="relative w-72 h-72 border border-gold-leaf/20 bg-gradient-to-br from-[#1b3f1b] to-[#043404] rounded-2xl shadow-xl flex items-center justify-center">

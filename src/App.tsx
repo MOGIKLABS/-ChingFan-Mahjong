@@ -34,7 +34,7 @@ const DEFAULT_SESSION: MatchSession = {
 
 export default function App() {
   const [language, setLanguage] = useState<Language>('zh-HK');
-  const [activeTab, setActiveTab] = useState<'parlour' | 'builder' | 'inspector' | 'glossary' | 'ledger'>('parlour');
+  const [activeTab, setActiveTab] = useState<'parlour' | 'builder' | 'inspector' | 'glossary' | 'ledger'>('builder');
   const [session, setSession] = useState<MatchSession>(DEFAULT_SESSION);
 
   // A buffer to hold newly scanned mahjong layout, which gets loaded into Scorer directly
@@ -71,10 +71,10 @@ export default function App() {
 
   // Nav labels translation
   const tabsConfig = [
-    { id: 'parlour' as const, icon: LayoutDashboard, zh: '雅座', en: 'Parlour' },
     { id: 'builder' as const, icon: Hammer, zh: '算分器', en: 'Builder' },
     { id: 'inspector' as const, icon: Eye, zh: '掃描器', en: 'Inspector' },
     { id: 'glossary' as const, icon: Compass, zh: '番種指南', en: 'Glossary' },
+    { id: 'parlour' as const, icon: LayoutDashboard, zh: '雅座', en: 'Parlour' },
     { id: 'ledger' as const, icon: History, zh: '結算簿', en: 'Ledger' },
   ];
 
