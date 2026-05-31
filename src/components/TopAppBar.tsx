@@ -43,15 +43,17 @@ export default function TopAppBar({
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Brand/Branding logo */}
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary border border-gold-leaf/30 shadow-[0_0_10px_rgba(197,160,33,0.15)] text-ivory font-serif text-xl font-bold tracking-wider">
-            清
-          </div>
+          <img
+            src="/chingfanlogo.png"
+            alt="ChingFan"
+            className="h-10 w-10 rounded-lg object-contain bg-white p-0.5"
+          />
           <div>
             <h1 className="text-xl font-serif font-extrabold text-gold-leaf tracking-wider">
               {language === 'zh-HK' ? '「清番」' : 'ChingFan'}
             </h1>
             <p className="text-[10px] font-sans tracking-widest text-zinc-400 uppercase">
-              {language === 'zh-HK' ? '傳統港式麻雀算分器' : 'Traditional HK Scorer'}
+              {language === 'zh-HK' ? '港式麻雀計算機' : 'HK Mahjong Calculator'}
             </p>
           </div>
         </div>
