@@ -38,9 +38,9 @@ export default function GlossaryView({ language }: GlossaryViewProps) {
           <div
             key={g.id}
             id={`glossary-card-${g.id}`}
-            className="border border-zinc-800 bg-[#091e12] hover:border-gold-leaf/30 rounded-2xl p-5 space-y-4 transition-all hover:translate-y-[-1px]"
+            className="border border-gold-leaf/20 bg-[#0f3320] hover:border-gold-leaf/30 rounded-2xl p-5 space-y-4 transition-all hover:translate-y-[-1px]"
           >
-            <div className="flex items-start justify-between border-b border-zinc-800 pb-3">
+            <div className="flex items-start justify-between border-b border-gold-leaf/10 pb-3">
               <div>
                 <div className="flex items-center gap-2">
                   <span className="text-lg font-serif font-bold text-ivory">
@@ -64,7 +64,7 @@ export default function GlossaryView({ language }: GlossaryViewProps) {
               {language === 'zh-HK' ? g.descriptionZh : g.descriptionEn}
             </p>
 
-            <div className="space-y-2 pt-1 border-t border-zinc-850/30">
+            <div className="space-y-2 pt-1 border-t border-gold-leaf/10">
               <span className="text-[10px] text-zinc-500 uppercase font-mono block">{t.exampleLabel}</span>
               <div className="flex flex-wrap gap-1 leading-none p-1.5 bg-surface/40 rounded-xl justify-center">
                 {g.exampleTiles.map((tId, idx) => (
