@@ -76,7 +76,7 @@ export default function LedgerView({
               <div
                 key={log.id}
                 id={`ledger-entry-${log.id}`}
-                className="border border-zinc-850/80 bg-[#121412] rounded-2xl p-5 space-y-4 animate-fadeIn"
+                className="border border-zinc-850/80 bg-[#091e12] rounded-2xl p-5 space-y-4 animate-fadeIn"
               >
                 {/* Header info */}
                 <div className="flex justify-between items-start border-b border-zinc-800/50 pb-3">
