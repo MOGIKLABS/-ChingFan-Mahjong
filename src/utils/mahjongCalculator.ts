@@ -557,8 +557,9 @@ export function calculatePoints(fan: number, minFan: number = 3): number {
   // 8 Fan: 128 points
   // 9 Fan: 256 points
   // 10+ Fan: 512 points
+  // 13 Fan: 4096 points (爆棚 limit)
   const points = Math.pow(2, fan - 1);
-  return Math.min(512, points); // standard Cap limit is usually 512 points (10 Fan Limit) or 1024 points (13 Fan Limit)
+  return Math.min(4096, points); // 13-fan cap (爆棚): 2^12 = 4096
 }
 
 function calculateFlowers(
