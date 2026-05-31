@@ -1,0 +1,8 @@
+{
+  "framework": "vite",
+  "functions": {
+    "api/inspector/scan.ts": {
+      "maxDuration": 30
+    }
+  }
+}
