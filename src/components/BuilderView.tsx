@@ -68,26 +68,26 @@ export default function BuilderView({
 
   // Translate helpers
   const t = {
-    title: language === 'zh-HK' ? '食糊分析器 (Hand Builder)' : 'The Hand Builder',
-    winner: language === 'zh-HK' ? '食糊赢家' : 'Winning Player',
-    winMethod: language === 'zh-HK' ? '贏牌方式' : 'Winning Path',
-    selfDrawn: language === 'zh-HK' ? '自摸 (Self-Drawn)' : 'Self-Drawn (Zimo)',
-    discard: language === 'zh-HK' ? '出冲 / 執位 (Discard Feed)' : 'Discard (Chong)',
-    discarder: language === 'zh-HK' ? '放銃者 / 粮頭' : 'Discarder (Feeder)',
-    concealed: language === 'zh-HK' ? '門前清 (全暗牌無上碰)' : 'Concealed Hand (Menqianqing)',
-    meldList: language === 'zh-HK' ? '組合構建 (4組順/刻 + 1對眼)' : '組合組裝 (4 Melds + 1 Pair)',
-    flowers: language === 'zh-HK' ? '花牌與季節牌' : 'Flowers & Seasons Collection',
-    scoreResult: language === 'zh-HK' ? '食糊番數與點數結算' : 'Points Valuation',
-    points: language === 'zh-HK' ? '分' : 'Pts',
+    title: language === 'zh-HK' ? '算番' : 'Score Hand',
+    winner: language === 'zh-HK' ? '邊個贏？' : 'Who won?',
+    winMethod: language === 'zh-HK' ? '點贏？' : 'How?',
+    selfDrawn: language === 'zh-HK' ? '自摸' : 'Self-Drawn',
+    discard: language === 'zh-HK' ? '食糊' : 'Discard',
+    discarder: language === 'zh-HK' ? '邊個出銃？' : 'Who dealt in?',
+    concealed: language === 'zh-HK' ? '門前清（冇上冇碰）' : 'Concealed (no calls)',
+    meldList: language === 'zh-HK' ? '砌牌（4組 + 1對眼）' : 'Build Hand (4 sets + 1 pair)',
+    flowers: language === 'zh-HK' ? '花牌' : 'Flowers',
+    scoreResult: language === 'zh-HK' ? '結果' : 'Result',
+    points: language === 'zh-HK' ? '分' : 'Points',
     fan: language === 'zh-HK' ? '番' : 'Fan',
-    recordBtn: language === 'zh-HK' ? '登記算分並計入賬目' : 'Record Ledger Payment',
-    configureSlot: language === 'zh-HK' ? '設定' : 'Configure',
-    meldBuilder: language === 'zh-HK' ? '牌組構建器' : 'Meld Customizer',
-    apply: language === 'zh-HK' ? '套用組合' : 'Apply Meld',
+    recordBtn: language === 'zh-HK' ? '記賬' : 'Record',
+    configureSlot: language === 'zh-HK' ? '設定' : 'Set',
+    meldBuilder: language === 'zh-HK' ? '揀牌' : 'Pick Tiles',
+    apply: language === 'zh-HK' ? '確定' : 'Confirm',
     close: language === 'zh-HK' ? '取消' : 'Cancel',
-    emptySlot: language === 'zh-HK' ? '空置組合 - 點擊設定' : 'Empty Meld - Click to Configure',
-    emptyEye: language === 'zh-HK' ? '空置將眼 - 點擊設定' : 'Empty Pair Eye - Click to Configure',
-    invalidWarn: language === 'zh-HK' ? '牌局不合法，無法入賬' : 'Current Hand Build holds errors',
+    emptySlot: language === 'zh-HK' ? '撳呢度揀牌' : 'Tap to set',
+    emptyEye: language === 'zh-HK' ? '撳呢度揀眼' : 'Tap to set pair',
+    invalidWarn: language === 'zh-HK' ? '未砌好' : 'Incomplete hand',
   };
 
   // Perform calculation
@@ -296,10 +296,10 @@ export default function BuilderView({
   return (
     <div id="builder-view" className="space-y-6">
       {/* Configuration context cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-zinc-800/20 border border-zinc-800 p-5 rounded-2xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border border-gold-leaf/15 bg-gradient-to-br from-[#0a2f0a] to-[#071e10] p-5 rounded-2xl">
         {/* Left Card: Winner Selection */}
         <div className="space-y-3">
-          <label className="text-xs font-semibold text-zinc-400 uppercase tracking-widest block">{t.winner}</label>
+          <label className="text-sm font-serif font-semibold text-gold-leaf">{t.winner}</label>
           <div className="grid grid-cols-4 gap-2">
             {session.players.map((p, idx) => (
               <button
@@ -357,7 +357,7 @@ export default function BuilderView({
         <div className="space-y-3 md:border-l md:border-zinc-800 md:pl-5">
           {winType === 'discard' ? (
             <>
-              <label className="text-xs font-semibold text-zinc-400 uppercase tracking-widest block">{t.discarder}</label>
+              <label className="text-sm font-serif font-semibold text-gold-leaf">{t.discarder}</label>
               <div className="grid grid-cols-4 gap-2">
                 {session.players.map(p => (
                   <button
@@ -399,8 +399,8 @@ export default function BuilderView({
       </div>
 
       {/* Hand builder interface representing 4 Melds + 1 Eye */}
-      <div className="border border-zinc-800 bg-[#091e12] p-5 rounded-2xl space-y-4">
-        <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest">{t.meldList}</h3>
+      <div className="border border-gold-leaf/15 bg-gradient-to-br from-[#0a2f0a] to-[#071e10] p-5 rounded-2xl space-y-4">
+        <h3 className="text-sm font-serif font-semibold text-gold-leaf">{t.meldList}</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           {/* 4 Melds slots */}
@@ -409,10 +409,10 @@ export default function BuilderView({
             return (
               <div
                 key={idx}
-                className="relative border border-dashed border-zinc-850 hover:bg-zinc-800/10 p-3 rounded-xl flex flex-col justify-between min-h-[140px] transition-all"
+                className="relative border border-dashed border-gold-leaf/20 hover:bg-zinc-800/10 p-3 rounded-xl flex flex-col justify-between min-h-[140px] transition-all"
               >
                 <div>
-                  <span className="text-[10px] text-zinc-500 block font-mono">MELD {idx + 1}</span>
+                  <span className="text-xs text-gold-leaf/60 block font-serif">{idx + 1}</span>
                   {m ? (
                     <div className="flex gap-1 mt-2 flex-wrap items-center justify-center">
                       {m.tiles.map((tId, tIdx) => (
@@ -432,7 +432,7 @@ export default function BuilderView({
                       setEditorValue('1');
                       setEditingSlot(idx);
                     }}
-                    className="flex-1 text-[10px] bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-gold-leaf hover:bg-zinc-700 font-medium py-1 rounded-md transition-colors"
+                    className="flex-1 text-sm bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-gold-leaf hover:bg-zinc-700 font-medium py-2.5 rounded-lg transition-colors"
                   >
                     {t.configureSlot}
                   </button>
@@ -450,9 +450,9 @@ export default function BuilderView({
           })}
 
           {/* Eye pair slot */}
-          <div className="relative border border-dashed border-zinc-850 hover:bg-zinc-800/10 p-3 rounded-xl flex flex-col justify-between min-h-[140px] transition-all">
+          <div className="relative border border-dashed border-gold-leaf/20 hover:bg-zinc-800/10 p-3 rounded-xl flex flex-col justify-between min-h-[140px] transition-all">
             <div>
-              <span className="text-[10px] text-zinc-500 block font-mono">EYE / PAIR (將眼)</span>
+              <span className="text-xs text-gold-leaf/60 block font-serif">{language === 'zh-HK' ? '眼' : 'Pair'}</span>
               {hand.eye ? (
                 <div className="flex gap-1 mt-2 justify-center">
                   {hand.eye.map((tId, tIdx) => (
@@ -471,7 +471,7 @@ export default function BuilderView({
                   setEditorValue('1');
                   setEditingSlot('eye');
                 }}
-                className="flex-1 text-[10px] bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-gold-leaf hover:bg-zinc-700 font-medium py-1 rounded-md transition-colors"
+                className="flex-1 text-sm bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-gold-leaf hover:bg-zinc-700 font-medium py-2.5 rounded-lg transition-colors"
               >
                 {t.configureSlot}
               </button>
@@ -489,8 +489,8 @@ export default function BuilderView({
       </div>
 
       {/* Flowers selector screen */}
-      <div className="border border-zinc-800 bg-[#091e12] p-5 rounded-2xl space-y-4">
-        <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest">{t.flowers}</h3>
+      <div className="border border-gold-leaf/15 bg-gradient-to-br from-[#0a2f0a] to-[#071e10] p-5 rounded-2xl space-y-4">
+        <h3 className="text-sm font-serif font-semibold text-gold-leaf">{t.flowers}</h3>
 
         <div className="flex flex-wrap gap-2.5 justify-center">
           {ALL_TILES.filter(t => t.suit === 'flowers' || t.suit === 'seasons').map(t => {
@@ -521,7 +521,7 @@ export default function BuilderView({
       {/* Editor Modal Overlay for slot config */}
       {editingSlot !== null && (
         <div id="meld-builder-modal" className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fadeIn">
-          <div className="w-full max-w-md border border-zinc-800 bg-[#0f2a1a] rounded-2xl p-6 shadow-2xl space-y-4">
+          <div className="w-full max-w-md border border-zinc-800 bg-gradient-to-br from-[#0c2814] to-[#091e10] rounded-2xl p-6 shadow-2xl space-y-4">
             <h4 className="text-md font-serif font-bold text-gold-leaf flex items-center gap-2 border-b border-zinc-800 pb-3">
               <Plus size={16} />
               <span>{t.meldBuilder} (Editing {editingSlot === 'eye' ? 'Eye' : `Meld ${editingSlot + 1}`})</span>
@@ -670,8 +670,8 @@ export default function BuilderView({
       )}
 
       {/* Realtime Scorer breakdown output */}
-      <div className="rounded-2xl border border-zinc-800 bg-[#091e12] p-5 space-y-4">
-        <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest">{t.scoreResult}</h3>
+      <div className="rounded-2xl border border-gold-leaf/15 bg-gradient-to-br from-[#0a2f0a] to-[#071e10] p-5 space-y-4">
+        <h3 className="text-sm font-serif font-semibold text-gold-leaf">{t.scoreResult}</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {/* Card Left: Total Valuation */}
@@ -680,9 +680,9 @@ export default function BuilderView({
               <>
                 <div className="flex items-center gap-1.5 text-emerald-500 font-serif text-xs font-bold mb-1">
                   <Check size={14} />
-                  <span>Winning Setup Verified 胡牌成立</span>
+                  <span>{language === 'zh-HK' ? '胡牌成立 ✓' : 'Valid Hand ✓'}</span>
                 </div>
-                <div className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono">Total Valuation</div>
+                <div className="text-xs text-zinc-400 font-serif">Total</div>
                 <div className="text-5xl font-serif font-extrabold text-gold-leaf tracking-wider mt-3">
                   {calculation.totalFan} <span className="text-xl font-normal">{t.fan}</span>
                 </div>
@@ -705,7 +705,7 @@ export default function BuilderView({
 
           {/* Card Center: Criteria Breakdown */}
           <div className="bg-surface border border-zinc-850 p-4 rounded-xl md:col-span-2 space-y-3">
-            <span className="text-[10px] text-zinc-500 block font-mono">RULES CRITERIA TRIGGERED (胡牌番種明細)</span>
+            <span className="text-xs text-gold-leaf/60 block font-serif">{language === 'zh-HK' ? '番種明細' : 'Fan Breakdown'}</span>
 
             {calculation.isValid && calculation.breakdown.length > 0 ? (
               <div className="space-y-1.5 max-h-[140px] overflow-y-auto pr-1">
@@ -718,7 +718,7 @@ export default function BuilderView({
               </div>
             ) : (
               <span className="text-xs text-zinc-600 block py-6 text-center font-serif">
-                {calculation.isValid ? 'No point-bearing patterns loaded (Chicken Hand).' : 'Complete hand to calculate breakdown.'}
+                {calculation.isValid ? (language === 'zh-HK' ? '雞糊（冇番）' : 'Chicken hand (no fan)') : (language === 'zh-HK' ? '砌好先計' : 'Complete hand to score')}
               </span>
             )}
           </div>
