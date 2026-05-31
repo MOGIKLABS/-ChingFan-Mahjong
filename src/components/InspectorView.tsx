@@ -176,7 +176,7 @@ export default function InspectorView({
       {/* Main photo loader board */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
         {/* Left column: upload card */}
-        <div className="border border-zinc-800 bg-[#121412] p-5 rounded-2xl space-y-4">
+        <div className="border border-zinc-800 bg-[#091e12] p-5 rounded-2xl space-y-4">
           <div className="flex flex-col items-center justify-center border-2 border-dashed border-zinc-800 rounded-xl h-60 bg-surface relative overflow-hidden transition-all hover:bg-zinc-800/10">
             {image === 'preset_placeholder' ? (
               <div className="text-center p-4">
@@ -263,7 +263,7 @@ export default function InspectorView({
         </div>
 
         {/* Right column: results preview */}
-        <div className="border border-zinc-800 bg-[#121412] p-5 rounded-2xl min-h-[300px] flex flex-col justify-between">
+        <div className="border border-zinc-800 bg-[#091e12] p-5 rounded-2xl min-h-[300px] flex flex-col justify-between">
           <div>
             <span className="text-[10px] text-zinc-500 uppercase tracking-widest block font-mono mb-4">Detection Results 檢測明細</span>
 
