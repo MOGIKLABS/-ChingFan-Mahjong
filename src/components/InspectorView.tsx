@@ -25,11 +25,11 @@ export default function InspectorView({
   const [result, setResult] = useState<any | null>(null);
 
   const t = {
-    title: language === 'zh-HK' ? '智能「清番」掃描器 (Inspector)' : "The Inspector (Scanner)",
-    subtitle: language === 'zh-HK' ? '上傳雀牌擺位照片，AI 自動檢測胡牌結構並排版！' : 'Upload a photo of your laid out mahjong hand, and let Gemini detect tiles & organize melds!',
+    title: language === 'zh-HK' ? '掃描' : "Scan Tiles",
+    subtitle: language === 'zh-HK' ? '上傳雀牌擺位照片，AI 自動檢測胡牌結構並排版！' : 'Upload a photo of your laid out mahjong hand, AI will detect your tiles automatically.',
     uploadLabel: language === 'zh-HK' ? '選擇照片 / 拍照' : 'Upload Photo / Take Picture',
     dragDrop: language === 'zh-HK' ? '支援拖放或點擊拍照' : 'Drag & drop image here or tap to snap',
-    scanning: language === 'zh-HK' ? 'AI 雀神分析中...' : 'Gemini AI Analyzing Mahjong Hand...',
+    scanning: language === 'zh-HK' ? 'AI 雀神分析中...' : 'AI scanning...',
     loadToBuilder: language === 'zh-HK' ? '載入至食糊分析器' : 'Export and Load to Scorer',
     sampleHands: language === 'zh-HK' ? '沒有牌在手？試試範例圖片：' : 'No tiles nearby? Try these sample layouts:',
     sample1: language === 'zh-HK' ? '範例：混一色對對胡' : 'Example: All Pungs of Bamboo',
@@ -110,8 +110,8 @@ export default function InspectorView({
       const isNetworkError = err.message?.includes('Failed to fetch') || err.message?.includes('Network error');
       const friendlyMsg = isNetworkError
         ? (language === 'zh-HK'
-          ? '掃描功能需要本地伺服器及 Gemini API 金鑰才能運行。請使用下方的「範例牌型」按鈕試用功能！'
-          : 'Photo scanning requires a local server with a Gemini API key. Try the sample preset hands below to see the feature in action!')
+          ? '掃描功能需要 API 金鑰。請使用下方「範例牌型」按鈕試用！'
+          : 'Scanning requires an API key. Try the sample presets below to see it in action.')
         : (err.message || 'Error occurred starting Mahjong image parse.');
       setError(friendlyMsg);
     } finally {
@@ -233,7 +233,7 @@ export default function InspectorView({
                 onClick={handleLaunchAnalysis}
                 className="flex-2 py-2 px-4 bg-primary hover:bg-[#005a00] border border-gold-leaf/30 text-ivory font-semibold rounded-lg text-xs shadow-md"
               >
-                Let Gemini Scan 啟動 AI 檢測
+                Scan 掃描
               </button>
             )}
           </div>
@@ -318,7 +318,7 @@ export default function InspectorView({
               <div className="text-center py-12 text-zinc-550 font-serif text-xs">
                 {!error && (language === 'zh-HK'
                   ? '上傳照片啟動 AI 掃描，或使用左方「範例牌型」按鈕即時體驗！'
-                  : 'Upload a photo to scan with Gemini AI, or try the sample preset hands on the left to see it in action.')}
+                  : 'Upload a photo to scan, or try the sample presets to see it in action.')}
               </div>
             )}
           </div>
