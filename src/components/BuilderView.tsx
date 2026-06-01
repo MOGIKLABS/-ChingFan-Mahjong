@@ -295,50 +295,112 @@ export default function BuilderView({
 
   return (
     <div id="builder-view" className="space-y-8">
-      {/* Tile Palette - all tiles visible for quick reference and selection */}
-      {editingSlot === null && (
-        <div className="border border-gold-leaf/20 bg-[#0f3320] p-5 rounded-2xl space-y-4">
-          <h3 className="text-sm font-serif font-semibold text-gold-leaf">
-            {language === 'zh-HK' ? '所有牌' : 'All Tiles'}
-          </h3>
-          <div className="space-y-3">
-            {/* Characters */}
-            <div>
-              <span className="text-xs text-gold-leaf/50 font-serif block mb-1.5">{language === 'zh-HK' ? '萬子' : 'Characters'}</span>
-              <div className="flex flex-wrap gap-1.5">
-                {[1,2,3,4,5,6,7,8,9].map(n => (
-                  <TileVisual key={`${n}w`} tileId={`${n}w`} size="sm" />
-                ))}
-              </div>
-            </div>
-            {/* Dots */}
-            <div>
-              <span className="text-xs text-gold-leaf/50 font-serif block mb-1.5">{language === 'zh-HK' ? '筒子' : 'Dots'}</span>
-              <div className="flex flex-wrap gap-1.5">
-                {[1,2,3,4,5,6,7,8,9].map(n => (
-                  <TileVisual key={`${n}d`} tileId={`${n}d`} size="sm" />
-                ))}
-              </div>
-            </div>
-            {/* Bamboo */}
-            <div>
-              <span className="text-xs text-gold-leaf/50 font-serif block mb-1.5">{language === 'zh-HK' ? '索子' : 'Bamboo'}</span>
-              <div className="flex flex-wrap gap-1.5">
-                {[1,2,3,4,5,6,7,8,9].map(n => (
-                  <TileVisual key={`${n}b`} tileId={`${n}b`} size="sm" />
-                ))}
-              </div>
-            </div>
-            {/* Honours */}
-            <div>
-              <span className="text-xs text-gold-leaf/50 font-serif block mb-1.5">{language === 'zh-HK' ? '字牌' : 'Honours'}</span>
-              <div className="flex flex-wrap gap-1.5">
-                {['east','south','west','north','red','green','white'].map(id => (
-                  <TileVisual key={id} tileId={id} size="sm" />
-                ))}
-              </div>
-            </div>
+      {/* Result - always visible at top */}
+      <div className="rounded-2xl border border-gold-leaf/20 bg-[#0f3320] p-6 space-y-5">
+        <h3 className="text-base font-serif font-bold text-gold-leaf">{t.scoreResult}</h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {/* Fan Count */}
+          <div className="bg-white/5 border border-gold-leaf/15 p-6 rounded-xl flex flex-col items-center justify-center text-center">
+            {calculation.isValid ? (
+              <>
+                <div className="flex items-center gap-2 text-emerald-400 font-serif text-sm font-bold mb-2">
+                  <Check size={18} />
+                  <span>{language === 'zh-HK' ? '胡牌成立' : 'Valid Hand'}</span>
+                </div>
+                <div className="text-6xl font-serif font-extrabold text-gold-leaf tracking-wider mt-2">
+                  {calculation.totalFan} <span className="text-2xl font-normal">{t.fan}</span>
+                </div>
+                <div className="text-lg font-serif text-emerald-400 font-bold mt-3">
+                  {calculation.points} {language === 'zh-HK' ? '分' : 'Points'}
+                </div>
+                <span className="mt-2 text-sm text-ivory/70 font-serif">{calculation.handNameZh} ({calculation.totalFan}番)</span>
+              </>
+            ) : (
+              <>
+                <div className="flex flex-col items-center justify-center text-center p-6">
+                  <AlertTriangle size={36} className="text-amber-500 mb-3" />
+                  <span className="text-sm text-ivory/60 font-serif leading-relaxed">
+                    {calculation.errorMsg}
+                  </span>
+                </div>
+              </>
+            )}
           </div>
+
+          {/* Fan Breakdown */}
+          <div className="bg-white/5 border border-gold-leaf/15 p-5 rounded-xl md:col-span-2 space-y-3">
+            <span className="text-sm text-gold-leaf/70 block font-serif">{language === 'zh-HK' ? '番種明細' : 'Fan Breakdown'}</span>
+
+            {calculation.isValid && calculation.breakdown.length > 0 ? (
+              <div className="space-y-2 max-h-[200px] overflow-y-auto pr-1">
+                {calculation.breakdown.map((b, idx) => (
+                  <div key={idx} className="flex justify-between items-center text-sm py-2 border-b border-gold-leaf/10">
+                    <span className="text-ivory font-medium">{language === 'zh-HK' ? b.nameZh : b.nameEn}</span>
+                    <span className="text-gold-leaf font-serif font-bold">+{b.fan} {t.fan}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <span className="text-sm text-ivory/40 block py-8 text-center font-serif">
+                {calculation.isValid ? (language === 'zh-HK' ? '雞糊（冇番）' : 'Chicken hand (no fan)') : (language === 'zh-HK' ? '砌好先計' : 'Complete hand to score')}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Record button */}
+        <div className="flex justify-end pt-3 border-t border-gold-leaf/10">
+          <button
+            id="builder-record-win-btn"
+            disabled={!calculation.isValid}
+            onClick={handleRecordWin}
+            className={`
+              flex items-center gap-2 font-bold text-sm px-8 py-4 rounded-xl transition-all duration-150
+              ${
+                !calculation.isValid
+                  ? 'opacity-40 cursor-not-allowed bg-zinc-800 text-zinc-500'
+                  : 'bg-gradient-to-r from-gold-leaf via-amber-500 to-amber-600 text-surface hover:brightness-110 shadow-lg hover:shadow-xl hover:translate-y-[-1px]'
+              }
+            `}
+          >
+            <Save size={18} />
+            <span>{t.recordBtn}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Your Hand - shows the tiles you've selected */}
+      {editingSlot === null && (hand.melds.some(m => m !== null) || hand.eye) && (
+        <div className="border border-gold-leaf/20 bg-[#0f3320] p-5 rounded-2xl space-y-3">
+          <h3 className="text-sm font-serif font-semibold text-gold-leaf">
+            {language === 'zh-HK' ? '你嘅手牌' : 'Your Hand'}
+          </h3>
+          <div className="flex flex-wrap gap-3 items-end">
+            {hand.melds.map((meld, idx) => (
+              meld && (
+                <div key={`meld-${idx}`} className="flex gap-1 bg-white/5 rounded-lg p-2 border border-gold-leaf/10">
+                  {meld.tiles.map((tId, tIdx) => (
+                    <TileVisual key={tIdx} tileId={tId} size="sm" />
+                  ))}
+                </div>
+              )
+            ))}
+            {hand.eye && (
+              <div className="flex gap-1 bg-white/5 rounded-lg p-2 border border-gold-leaf/10">
+                {hand.eye.map((tId, tIdx) => (
+                  <TileVisual key={tIdx} tileId={tId} size="sm" />
+                ))}
+              </div>
+            )}
+          </div>
+          {hand.flowers.length > 0 && (
+            <div className="flex gap-1 mt-2">
+              {hand.flowers.map((fId, fIdx) => (
+                <TileVisual key={fIdx} tileId={fId} size="sm" />
+              ))}
+            </div>
+          )}
         </div>
       )}
 
@@ -716,80 +778,6 @@ export default function BuilderView({
         </div>
       )}
 
-      {/* Result */}
-      <div className="rounded-2xl border border-gold-leaf/20 bg-[#0f3320] p-6 space-y-5">
-        <h3 className="text-base font-serif font-bold text-gold-leaf">{t.scoreResult}</h3>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {/* Fan Count */}
-          <div className="bg-white/5 border border-gold-leaf/15 p-6 rounded-xl flex flex-col items-center justify-center text-center">
-            {calculation.isValid ? (
-              <>
-                <div className="flex items-center gap-2 text-emerald-400 font-serif text-sm font-bold mb-2">
-                  <Check size={18} />
-                  <span>{language === 'zh-HK' ? '胡牌成立' : 'Valid Hand'}</span>
-                </div>
-                <div className="text-6xl font-serif font-extrabold text-gold-leaf tracking-wider mt-2">
-                  {calculation.totalFan} <span className="text-2xl font-normal">{t.fan}</span>
-                </div>
-                <div className="text-lg font-serif text-emerald-400 font-bold mt-3">
-                  {calculation.points} {language === 'zh-HK' ? '分' : 'Points'}
-                </div>
-                <span className="mt-2 text-sm text-ivory/70 font-serif">{calculation.handNameZh} ({calculation.totalFan}番)</span>
-              </>
-            ) : (
-              <>
-                <div className="flex flex-col items-center justify-center text-center p-6">
-                  <AlertTriangle size={36} className="text-amber-500 mb-3" />
-                  <span className="text-sm text-ivory/60 font-serif leading-relaxed">
-                    {calculation.errorMsg}
-                  </span>
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* Fan Breakdown */}
-          <div className="bg-white/5 border border-gold-leaf/15 p-5 rounded-xl md:col-span-2 space-y-3">
-            <span className="text-sm text-gold-leaf/70 block font-serif">{language === 'zh-HK' ? '番種明細' : 'Fan Breakdown'}</span>
-
-            {calculation.isValid && calculation.breakdown.length > 0 ? (
-              <div className="space-y-2 max-h-[200px] overflow-y-auto pr-1">
-                {calculation.breakdown.map((b, idx) => (
-                  <div key={idx} className="flex justify-between items-center text-sm py-2 border-b border-gold-leaf/10">
-                    <span className="text-ivory font-medium">{language === 'zh-HK' ? b.nameZh : b.nameEn}</span>
-                    <span className="text-gold-leaf font-serif font-bold">+{b.fan} {t.fan}</span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <span className="text-sm text-ivory/40 block py-8 text-center font-serif">
-                {calculation.isValid ? (language === 'zh-HK' ? '雞糊（冇番）' : 'Chicken hand (no fan)') : (language === 'zh-HK' ? '砌好先計' : 'Complete hand to score')}
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Record button */}
-        <div className="flex justify-end pt-3 border-t border-gold-leaf/10">
-          <button
-            id="builder-record-win-btn"
-            disabled={!calculation.isValid}
-            onClick={handleRecordWin}
-            className={`
-              flex items-center gap-2 font-bold text-sm px-8 py-4 rounded-xl transition-all duration-150
-              ${
-                !calculation.isValid
-                  ? 'opacity-40 cursor-not-allowed bg-zinc-800 text-zinc-500'
-                  : 'bg-gradient-to-r from-gold-leaf via-amber-500 to-amber-600 text-surface hover:brightness-110 shadow-lg hover:shadow-xl hover:translate-y-[-1px]'
-              }
-            `}
-          >
-            <Save size={18} />
-            <span>{t.recordBtn}</span>
-          </button>
-        </div>
-      </div>
     </div>
   );
 }
