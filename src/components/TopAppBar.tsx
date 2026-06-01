@@ -46,7 +46,7 @@ export default function TopAppBar({
           <img
             src="/chingfanlogo.png"
             alt="ChingFan"
-            className="h-10 w-10 rounded-lg object-contain bg-white p-0.5"
+            className="h-11 w-11 rounded-lg object-cover"
           />
           <div>
             <h1 className="text-xl font-serif font-extrabold text-gold-leaf tracking-wider">
