@@ -86,14 +86,14 @@ export default async function handler(req: any, res: any) {
 
     if (!response.ok) {
       const err = await response.json().catch(() => ({}));
-      throw new Error(err.error?.message || `OpenAI API returned ${response.status}`);
+      throw new Error(err.error?.message || `API returned ${response.status}`);
     }
 
     const data = await response.json();
     const content = data.choices?.[0]?.message?.content;
 
     if (!content) {
-      return res.status(502).json({ error: "Empty response from OpenAI." });
+      return res.status(502).json({ error: "Empty response from scan API." });
     }
 
     // Parse and validate the JSON response
