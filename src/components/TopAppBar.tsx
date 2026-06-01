@@ -46,7 +46,7 @@ export default function TopAppBar({
           <img
             src="/chingfanlogo.png"
             alt="ChingFan"
-            className="h-11 w-11 rounded-lg object-cover"
+            className="h-16 w-16 rounded-lg object-cover"
           />
           <div>
             <h1 className="text-xl font-serif font-extrabold text-gold-leaf tracking-wider">
@@ -76,9 +76,9 @@ export default function TopAppBar({
             <button
               onClick={onCameraPress}
               title={language === 'zh-HK' ? '掃描牌面' : 'Scan tiles'}
-              className="p-2 text-zinc-400 hover:text-gold-leaf hover:bg-primary/20 border border-transparent hover:border-gold-leaf/30 rounded-full transition-all duration-150"
+              className="p-3 text-gold-leaf bg-primary/30 border-2 border-gold-leaf/40 hover:border-gold-leaf hover:bg-primary/50 rounded-full transition-all duration-150 shadow-md hover:shadow-lg"
             >
-              <Camera size={20} />
+              <Camera size={28} />
             </button>
           )}
         </div>
